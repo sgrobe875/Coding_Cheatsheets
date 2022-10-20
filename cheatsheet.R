@@ -119,6 +119,9 @@ names(d)    # all column/variable names for the dataframe
 # change variable names in a dataframe
 names(d) <- c("Variable1", "Variable2", "Variable3")
 
+# adding an index column
+data <- tibble::rowid_to_column(data, "index")
+
 
 
 
@@ -179,7 +182,7 @@ d <- d %>% select(-v2)                  # removes v2 from the dataframe
 
 d %>% arrange(-v2)                      # sorts dataframe by v2 in descending order, prints to console
 d <- d %>% arrange(-v2)                 # sorts dataframe by v2 in descending order, saves the dataframe
-d <- d %>% arrange_(v2)                 # sorts dataframe by v2 in ascending order, saves the dataframe
+d <- d %>% arrange(v2)                  # sorts dataframe by v2 in ascending order, saves the dataframe
 
 d %>% group_by(category) %>% count      # prints each group (unique value in "categorical") and the number
                                         # in each group; note that group_by must be used with another function
@@ -266,6 +269,27 @@ df <- data.frame(matrix(ncol = 3, nrow = 0))   # this example has three columns
 colnames(df) <- c("col1", "col2", "col3")
 
 
+
+
+## Global variables: use two caret symbols to declare global scope
+
+# This allows us to create a variable inside a function and be able to access it without 
+# needing to return it
+
+# example:
+
+myFunction <- function(parameter) {
+  ## some code here ##
+  
+  globalValue <<- something
+  
+  ## more code ##
+}
+
+# after running myFunction above, we would be able to call and access the variable globalValue
+# outside the scope of the function!
+# Note that if we declare the variable as globalValue <- something, it would be deleted after the
+# run of myFunction is complete, since it's only accessible within that scope
 
 
 
