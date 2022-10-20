@@ -293,6 +293,11 @@ myFunction <- function(parameter) {
 
 
 
+## Obtaining date and time
+Sys.time()   # gives the current date and time in YYYY-MM-DD HH:MM:SS format
+Sys.date()   # gives just the current date (without the time)
+
+
 
 
 
