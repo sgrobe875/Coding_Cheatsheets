@@ -18,18 +18,19 @@ require(reticulate)
 require(readxl)
 
 
-
+#### Functions ##################################################################################
 
 ## Creating a function
 functionName <- function(param1, param2) {
-  # do things to the parameters here.....
   
+  # do things to the parameters here.....
   
   
   # if applicable:
   return(argument)      # functions can only return one argument, so if you need to return multiple objects,
                         # put them together in a list and return the list!
 }
+
 
 ## Calling a function:
 
@@ -50,7 +51,7 @@ output <- functionName(p1, p2)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
-# read in data of various formats
+# read in data of various formats (in all cases, d is a dataframe holding the file data)
 d <- read_excel("file.xlsx")    # also works for xls files
 d <- read.csv("file.csv")       # also works on .txt files if they have comma delimiters!
 d <- read.delim("file.txt")
@@ -59,9 +60,10 @@ d <- read.delim("file.txt")
 # if there isn't a header in the file (just raw data, no variable names)
 d <- read.csv("file.csv", header = FALSE)   # works for any of the above methods
 
+
 # if separated by something other than commas (e.g., a colon)
-d <- read.delim("file.csv", sep = ":", header = FALSE)
-d <- read.delim("file.csv", sep = ":")
+d <- read.delim("file.csv", sep = ":", header = FALSE)     # no no column headers
+d <- read.delim("file.csv", sep = ":")                     # if column headers
 
 
 # Note that when reading in files, the "sep" argument separates variables for each observation, while 
@@ -72,6 +74,38 @@ d <- read.delim("file.csv", sep = ":")
 
 
 
+#### Creating a dataframe ########################################################################
+
+# create some vectors holding values
+vec1 <- c(1,2,3,4)
+vec2 <- c('string1','string2','string3','string4')
+vec3 <- c(3,4,5,6)
+
+# put vectors into a dataframe (each vector is a column)
+d <- data.frame(vec1, vec2, vec3)
+
+# change the column names:
+names(d) <- c('col1','col2','col3')
+
+# view the column names
+names(d)
+
+# view a dataframe
+View(d)
+
+# append a vector to an existing dataframe as a COLUMN
+# note the length of this vector must equal the number of ROWS in the existing dataframe!
+newVec <- c(8,9,10,11)
+d <- cbind(d, newVec)      # cbind = column bind
+
+
+# append a vector to an existing dataframe as a ROW
+# note the length of this vector must equal the number of COLUMNS in the existing dataframe!
+newRow <- c(5,'string5',7,12)
+d <- rbind(d, newRow)      # rbind = row bind
+
+
+# if rbind-ing two dataframes, the above must hold true AND the column names in both must be the same!
 
 
 
@@ -82,8 +116,7 @@ d <- read.delim("file.csv", sep = ":")
 
 
 
-
-#### Writing data to files #######################################################################
+#### Writing dataframes to files ###################################################################
 
 # to a csv:
 write.csv(dataframe, "filename.csv")
@@ -216,7 +249,7 @@ t <- d %>% distinct(VariableName, .keep_all = TRUE)    # same as above, but reta
 
 #### Data manipulation ############################################################################
 
-# To calculate percents of a categorical variable:
+## To calculate percents of a categorical variable:
 
 d2 <- d %>% group_by(category) %>% count()             # obtain counts for variable of interest
 pct_category <- c(d2$n / sum(d2$n))                    # calculate percents, save to vector
@@ -226,7 +259,10 @@ plottingData <- data.frame(d2$category, pct_category)  # create dataframe of cat
 
 
 
-# Create a categorical variable based on a numeric variable
+## Create a categorical variable based on a numeric variable (essentially a binned variable)
+# Note: I'm almost certain there's a more efficient way to do this, but this works
+
+# Stolen straight from TO Internship data:
 
 # vector of the category names
 binNames <- c("Day of Tip-Off", "1-11 Days\nBefore", "12-29 Days\nBefore", "30+ Days\nBefore")
@@ -266,7 +302,10 @@ for (i in seq(1:nrow(d))) {
 
 # Create empty dataframe
 df <- data.frame(matrix(ncol = 3, nrow = 0))   # this example has three columns
-colnames(df) <- c("col1", "col2", "col3")
+colnames(df) <- c("col1", "col2", "col3")      # set the column names for this dataframe
+names(df) <- c("col1", "col2", "col3")         # alternatively
+
+
 
 
 
@@ -326,7 +365,7 @@ ggplot(data = dataframe, mapping = aes(x = xvariable, y = yvariable, color = "co
 
 
 # Some common graph types:
-  geom_bar()        # barplot with just an x variable; R will make the counts by itself
+  geom_bar()        # barplot with just an x variable; R will make the counts (the y variable) by itself
   
   geom_col()        # barplot with x for categories and y for bar values
   
