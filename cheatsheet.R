@@ -8,14 +8,25 @@
 # Examples available in advanceSales.R  (Jobs/Ticket Office Internship/Advance Sales/advanceSales.R)
 
 
+# install packages (only need to do this once!)
+install.packages("packageName")   # note the quotes!
 
-# load in packages
-require(dplyr)
-require(ggplot2)
-require(writexl)
-require(scales)
-require(reticulate)
-require(readxl)
+
+# load in previously installed packages
+library(packageName)     # no quotes!
+
+# commonly used packages:
+library(dplyr)          # data manipulation
+library(ggplot2)        # pretty plots
+library(writexl)        # writing to Excel files
+library(scales)         # used along with ggplot2 for certain plots
+library(reticulate)     # to source Python code
+library(readxl)         # read Excel files
+
+
+
+
+
 
 
 #### Functions ##################################################################################
