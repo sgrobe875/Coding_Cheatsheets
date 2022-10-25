@@ -42,6 +42,33 @@ functionName <- function(param1, param2) {
                         # put them together in a list and return the list!
 }
 
+## Allowing function parameters to be optional
+# param1 and param2 will be NULL unless overwritten by the function call
+functionName <- function(param1 = NULL, param2 = NULL) {  
+  
+  # do things to the parameters here.....
+  
+  
+  # if you want the function to behave differently for NULL parameters:
+  if (is.null(param1)) {
+    ### do something ###
+  } else {
+    ### do something else ###
+  }
+  
+  # or behave different for non-NULL parameters:
+  if(!(is.null(param1))) {
+    ### do something ###
+  } else {
+    ### do something else ###
+  }
+  
+  
+  # if applicable:
+  return(argument)      # functions can only return one argument, so if you need to return multiple objects,
+  # put them together in a list and return the list!
+}
+
 
 ## Calling a function:
 
@@ -50,6 +77,13 @@ functionName(p1, p2)
 
 # if you want the return object:
 output <- functionName(p1, p2)
+
+# if no parameters:
+functionName()
+output <- functionName()
+
+
+
 
 
 
@@ -117,6 +151,8 @@ d <- rbind(d, newRow)      # rbind = row bind
 
 
 # if rbind-ing two dataframes, the above must hold true AND the column names in both must be the same!
+
+
 
 
 
@@ -394,6 +430,9 @@ joined <- merge(df1, df2, by.x = 'v1', by.y = 'v2')   # different key names in e
 
 
 
+
+
+
 #### ggplot graphing #############################################################################
 
 # General format:
@@ -564,6 +603,24 @@ ggplot(data = dataframe, mapping = aes(x = xvariable, fill = category)) +
 
 
 
+
+
+
+
+
+
+#### Base package plotting #########################################################
+
+# Not nearly as pretty as ggplot plots
+# Recommend base package plots for EDA but ggplot plots for anything else
+
+
+
+### THIS NEEDS WORK because I don't remember all of the syntax, so double check it
+
+barplot()
+
+plot(x = x_vector, y = y_vector)
 
 
 
