@@ -351,6 +351,42 @@ Sys.date()   # gives just the current date (without the time)
 
 
 
+## Reworking a dataframe into long form
+
+# empty dataframe to hold the long form data
+df_long <- data.frame(matrix(ncol = 3, nrow = 0))
+
+# values in the first column will go in the first column in the long form dataframe
+for (row in seq(1,nrow(df_original))) {
+  r <- df_original[row,1]
+  
+  # loop through subsequent columns to get values for the second column of long form dataframe
+  for (col in seq(2,length(names(df_original)))) {
+    c <- names(df_original)[col]
+    long_row <- c(r, c, df_original[row,col])
+    df_long <- rbind(df_long, long_row)
+  }
+}
+# rename the columns
+colnames(df_long) <- c("rowVariable", "colVariable", "values") 
+
+# Notes on long form:
+# the end result should be a dataframe with nrow(df_original)*ncol(df_original) rows and 3 columns
+# df_long$rowVariable and df_long$colVariable form a composite key
+
+
+
+
+
+
+### Joining two dataframes
+joined <- merge(df1, df2, by = c('v1', 'v2'))         # composite key (with the same variable names in both dfs)
+joined <- merge(df1, df2, by.x = 'v1', by.y = 'v2')   # different key names in each dataframe
+
+
+
+
+
 
 
 
