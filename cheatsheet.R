@@ -5,9 +5,6 @@
 
 
 
-# Examples available in advanceSales.R  (Jobs/Ticket Office Internship/Advance Sales/advanceSales.R)
-
-
 # install packages (only need to do this once!)
 install.packages("packageName")   # note the quotes!
 
@@ -222,6 +219,8 @@ variable <- d[row,]               # variable is a dataframe of 1 row and ncol(d)
 
 variable <- d[row1:row2,]         # variable is a dataframe of all rows between row1 and row2 (inclusive) and
                                   # ncol(d) columns
+
+variable <- d$column              # variable is a vector of all values in the column
 
 
 
@@ -612,7 +611,7 @@ ggplot(data = dataframe, mapping = aes(x = xvariable, fill = category)) +
 #### Base package plotting #########################################################
 
 # Not nearly as pretty as ggplot plots
-# Recommend base package plots for EDA but ggplot plots for anything else
+# Recommend base package plots for EDA since the syntax is shorter, but ggplot plots for anything else
 
 
 
