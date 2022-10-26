@@ -104,7 +104,7 @@ d <- read.csv("file.csv", header = FALSE)   # works for any of the above methods
 
 
 # if separated by something other than commas (e.g., a colon)
-d <- read.delim("file.csv", sep = ":", header = FALSE)     # no no column headers
+d <- read.delim("file.csv", sep = ":", header = FALSE)     # if no column headers
 d <- read.delim("file.csv", sep = ":")                     # if column headers
 
 
