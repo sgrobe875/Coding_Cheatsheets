@@ -536,6 +536,25 @@ ggplot(data = dataframe, mapping = aes(x = xvariable, y = group_by_counts, posit
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5), axis.text=element_text(size=11))
 
+
+# Here's another way to do it 
+# This example plots two sets of data on the same plot and offsets the bars so they appear
+# to be grouped; can use two different data frames
+ggplot(df1, aes(categorical)) +
+  geom_col(aes(y = count1, group = 1, fill = "label1"),
+           width = 0.4, position = position_nudge(-0.22)) +
+  geom_col(aes(y = count2, fill = "label2"), data = df2,
+           width = 0.4, position = position_nudge(0.22)) + 
+  scale_fill_manual(values = c("color1","color2")) + 
+  labs(fill="Legend Title") +
+  ggtitle("title") +
+  xlab('xlabel') + 
+  ylab('ylabel') +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), axis.text=element_text(size=11))
+
+
+
 # Counts without labels
 ggplot(data = dataframe, mapping = aes(x = xvariable, y = group_by_counts, position = category, 
                                        fill = category, label = group_by_counts)) + 
