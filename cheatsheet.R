@@ -21,6 +21,17 @@ library(reticulate)     # to source Python code
 library(readxl)         # read Excel files
 
 
+# use a function from a package without loading it!
+packageName::functionName   # do things with it here as you normally would
+
+# example:
+data <- tibble::rowid_to_column(data, "index")
+# This allows us to use the rowid_to_column function without loading the entire
+# tibble library!
+
+# This is useful if we have conflicts between function names in multiple packages. We 
+# can access certain functions without needing to load everything in that can lead
+# to conflicts
 
 
 
