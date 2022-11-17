@@ -1,6 +1,6 @@
 # Sarah Grobe
 # Created September 2022
-# Last Updated October 2022
+# Last Updated November 2022
 
 
 
@@ -17,8 +17,10 @@ library(dplyr)          # data manipulation
 library(ggplot2)        # pretty plots
 library(writexl)        # writing to Excel files
 library(scales)         # used along with ggplot2 for certain plots
-library(reticulate)     # to source Python code
 library(readxl)         # read Excel files
+library(gridExtra)      # grid and gridExtra useful for grid of ggplot2 plots
+library(grid)
+
 
 
 # use a function from a package without loading it!
@@ -454,11 +456,14 @@ ggplot(data = dataframe, mapping = aes(x = xvariable, y = yvariable, color = "co
 
 
 
+
 # My aesthetic preferences: change the theme, enlarge the text, and center the title:
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5), axis.text=element_text(size=11))
 
 
+  
+  
 
 # Some common graph types:
   geom_bar()        # barplot with just an x variable; R will make the counts (the y variable) by itself
@@ -468,6 +473,8 @@ ggplot(data = dataframe, mapping = aes(x = xvariable, y = yvariable, color = "co
   geom_point()      # scatterplot
   
   geom_histogram()  # a histogram!
+  
+  
   
   
   
@@ -633,6 +640,43 @@ ggplot(data = dataframe, mapping = aes(x = xvariable, fill = category)) +
 
 
 
+#### Saving plots to to directory #################################################
+
+p <- ### plot code ### (probably ggplot)
+print(p)   # this prints it to the "Plots" pane like normal, so we can see how it looks
+
+png(filename="figures/all_sentiment.png", width=600, height=350)   # name the file, set filepath, set dimensions
+p    # this is what we're saving to the above filepath
+dev.off()    # turn off the saving so we don't mess things up
+
+
+
+
+# Example (taken straight from POCS homelessness project):
+p <- ggplot(data = homelessness_tweetcounts, 
+            mapping = aes(x = log10(total_homeless_norm), y = log10(tweets_norm), color = sentiment)) + 
+  geom_point(alpha = 0.8, size = 2) + 
+  sent_color_palette + 
+  ggtitle(title) +
+  xlab(xlabel) + 
+  ylab(ylabel) + 
+  labs(color = legendtitle) + 
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5), axis.text=element_text(size=11),
+        axis.title.y = element_text(size = 9.5))
+print(p)
+
+png(filename="figures/all_sentiment.png", width=600, height=350)
+p
+dev.off()
+
+
+
+
+
+
+
+
 
 
 
@@ -645,7 +689,7 @@ ggplot(data = dataframe, mapping = aes(x = xvariable, fill = category)) +
 
 
 
-### THIS NEEDS WORK because I don't remember all of the syntax, so double check it
+### THIS NEEDS WORK because I don't remember all of the syntax, so double check it and come back 
 
 barplot()
 
@@ -658,6 +702,25 @@ plot(x = x_vector, y = y_vector)
 
 
 
+
+
+#### Running other files ############################################################
+
+# Run another R file:
+
+# This line will run the entire R file at this filepath. This means all variables,
+# dataframes, plots, functions, etc. will be in the environment
+source('filepath/to/file.R')
+# Uses include having a file to load in your data or build functions. It's much easier to
+# run this single line to initialize all of those objects than to manually load all of 
+# those objects each time you need them!
+
+
+
+# Run another Python file:
+
+source_python("filepath/to/file.py")
+# From the reticulate library. Similar use cases as above
 
 
 
